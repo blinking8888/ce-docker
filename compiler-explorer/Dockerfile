@@ -1,8 +1,10 @@
+ARG BASE_IMAGE=20-bookworm-slim
+
 FROM ce-infra:latest as ce_infra
 FROM gcc:latest as gcc
 FROM clang:latest as clang
 
-FROM node:20-bullseye-slim as final
+FROM node:${BASE_IMAGE}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git make \
