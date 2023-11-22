@@ -8,7 +8,7 @@ FROM node:${BASE_IMAGE}
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends git make \
-    gcc clang
+    gcc g++ clang
 
 ENV NODE_ENV production
 COPY --chown=nobody:nogroup --from=ce_infra /usr/src/compiler-explorer /opt/compiler-explorer
