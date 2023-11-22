@@ -24,6 +24,7 @@ WORKDIR /opt/compiler-explorer
 EXPOSE 10240
 
 VOLUME /opt/compiler-explorer/lib/storage/data
+VOLUME /opt/compiler-explorer/etc/config
 
 USER nobody
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
