@@ -1,14 +1,10 @@
-ARG BASE_IMAGE=20-bookworm-slim
-
 FROM ce-infra:latest as ce_infra
-FROM gcc:latest as gcc
-FROM clang:latest as clang
+FROM ce-base:latest as ce_base
+FROM ce-gcc:latest as gcc
+FROM ce-clang:latest as clang
+FROM ce-rust:latest as rust
 
-FROM node:${BASE_IMAGE}
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends git make \
-    gcc g++ clang
+FROM ce_base
 
 ENV NODE_ENV production
 COPY --chown=nobody:nogroup --from=ce_infra /usr/src/compiler-explorer /opt/compiler-explorer

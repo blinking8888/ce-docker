@@ -1,5 +1,4 @@
-ARG NODE_VERSION=20-bookworm-slim
-FROM node:${NODE_VERSION} as build 
+FROM ce-base:latest
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
