@@ -11,8 +11,11 @@ COPY --chown=nobody:nogroup --from=ce_infra /usr/src/compiler-explorer /opt/comp
 COPY --chown=nobody:nogroup --from=ce_infra /usr/bin/dumb-init /opt/compiler-explorer
 COPY --chown=nobody:nogroup --from=gcc /opt/compiler-explorer /opt/compiler-explorer
 COPY --chown=nobody:nogroup --from=clang /opt/compiler-explorer /opt/compiler-explorer
+COPY --chown=nobody:nogroup --from=rust /opt/compiler-explorer /opt/compiler-explorer
+
 COPY --chown=nobody:nogroup ./config/c++.local.properties /opt/compiler-explorer/etc/config/c++.local.properties
 COPY --chown=nobody:nogroup ./config/c.local.properties /opt/compiler-explorer/etc/config/c.local.properties
+COPY --chown=nobody:nogroup ./config/rust.local.properties /opt/compiler-explorer/etc/config/rust.local.properties
 COPY --chown=nobody:nogroup ./config/compiler-explorer.local.properties /opt/compiler-explorer/etc/config/compiler-explorer.local.properties
 
 WORKDIR /opt/compiler-explorer
@@ -25,6 +28,6 @@ VOLUME /opt/compiler-explorer/etc/config
 USER nobody
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-ENV EXTRA_ARGS='--language "c,c++"'
+ENV EXTRA_ARGS='--language "c,c++,rust"'
 
 CMD [ "make", "run-only" ]
