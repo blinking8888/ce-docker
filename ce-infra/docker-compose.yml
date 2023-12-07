@@ -1,0 +1,52 @@
+version: '3'
+
+services:
+  ce-infra:
+    build:
+      context: ./
+      args:
+        - NODE_VERSION=20-bookworm-slim
+        - COMPILER_EXPLORER_VERSION=gh-9590
+    image: ce-infra:latest
+    entrypoint: "echo CE Infra: All good!"
+
+  gcc-11.3.0:
+    image: ce-infra:latest
+    volumes:
+      - type: volume
+        source: ce-compilers
+        target: /opt/compiler-explorer
+        volume:
+          nocopy: true
+    command: [ "install", "x86", "gcc", "11.3.0" ]
+    depends_on:
+      - ce-infra
+
+  clang-11.0.1:
+    image: ce-infra:latest
+    volumes:
+      - type: volume
+        source: ce-compilers
+        target: /opt/compiler-explorer
+        volume:
+          nocopy: true
+    command: [ "install", "clang", "11.0.1" ]
+
+  list-compilers:
+    image: ce-infra:latest
+    command: [ "list" ]
+
+  whats-installed:
+    image: ce-infra:latest
+    volumes:
+      - type: volume
+        source: ce-compilers
+        target: /opt/compiler-explorer
+        read_only: true
+        volume:
+          nocopy: true
+    entrypoint: [ "find", "/opt/compiler-explorer", "-type", "d", "-maxdepth", "2" ]
+
+volumes:
+  ce-compilers:
+    external: true

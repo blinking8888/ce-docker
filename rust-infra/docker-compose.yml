@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  rust-infra:
+    build:
+      context: rust-infra
+    image: rust-infra:latest
+  rust-1.74.0:
+    image: rust-infra
+    volumes:
+      - type: volume
+        source: ce-compilers
+        target: /opt/compiler-explorer
+        volume:
+          nocopy: true
+    command: [ "1.74.0" ]
+    depends_on:
+      - rust-infra
+volumes:
+  ce-compilers:
+    external: true

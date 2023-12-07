@@ -1,14 +1,7 @@
 version: '3'
 
 services:
-  ce-infra:
-    build:
-      context: ./ce-infra
-      args:
-        - NODE_VERSION=20-bookworm-slim
-        - COMPILER_EXPLORER_VERSION=gh-9590
-    image: ce-infra:latest
-  ce:
+  compiler-explorer:
     build:
       context: ./
       args:
