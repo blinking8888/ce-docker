@@ -8,7 +8,12 @@ services:
         - NODE_VERSION=20-bookworm-slim
         - COMPILER_EXPLORER_VERSION=gh-9590
     image: ce-infra:latest
-    entrypoint: "echo CE Infra: All good!"
+    volumes:
+      - type: volume
+        source: ce-compilers
+        target: /opt/compiler-explorer
+        volume:
+          nocopy: true
 
   gcc-11.3.0:
     image: ce-infra:latest
