@@ -22,5 +22,3 @@ ENV RUSTUP_HOME=/tmp/rustup
 
 ENTRYPOINT [ "/bin/entrypoint.sh" ]
 
-
-
