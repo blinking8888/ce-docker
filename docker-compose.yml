@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  ce-infra:
+    build:
+      context: ./ce-infra
+      args:
+        - NODE_VERSION=20-bookworm-slim
+        - COMPILER_EXPLORER_VERSION=gh-9590
+    image: ce-infra:latest
+  ce:
+    build:
+      context: ./
+      args:
+        - BASE_DISTRO=bookworm-slim 
+        - NODE_MAJOR_VERSION=20
+        - ASM_PARSER_VERSION=v0.9
+        - COMPILER_EXPLORER_VERSION=gh-9590
+    volumes:
+      - type: volume
+        source: ce-data
+        target: /ce-data
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./config
+        target: /app/etc/config
+      - type: volume
+        source: ce-compilers
+        target: /opt/compiler-explorer
+        volume:
+          nocopy: true
+    environment:
+      - NODE_ENV=production
+    expose:
+      - "10240"
+    ports:
+      - "10240:10240"
+    image: compiler-explorer:latest
+volumes:
+  ce-compilers:
+    external: true
+  ce-data:
+    external: true
