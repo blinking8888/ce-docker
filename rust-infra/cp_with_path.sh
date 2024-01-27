@@ -7,4 +7,4 @@ dir=$(dirname $file)
 
 dest=$DEST_BASE/$dir/.
 mkdir -p $dest
-cp -r $filebash $dest
+cp -r $file $dest
